@@ -1,0 +1,6 @@
+---
+- name: Tâche de patch
+  include_tasks: patching.yml
+
+- name: Check  
+  include_tasks: ssh_2016-2183_check.yml

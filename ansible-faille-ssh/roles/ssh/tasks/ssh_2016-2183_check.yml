@@ -1,0 +1,17 @@
+---
+  - name: fichier sshd_config
+    shell: "sshd -T|grep -E '^kex|^cipher'"
+    register: result_grep
+    ignore_errors: yes
+
+  - name: verification sshd_config
+    shell: "egrep '^kex|^cipher' /etc/ssh/sshd_config"  
+    register: patched
+
+  - name: rapport
+    lineinfile:
+     path: "/root/ansible/ansible-faille-ssh/report/report_faille_2016-2183-v2.csv"
+     line: "{{ inventory_hostname }};{{ ansible_distribution }} {{ ansible_distribution_version }};{{ result_grep.stdout_lines }};{{ patched.stdout_lines }}"
+     state: present
+     create: yes
+    delegate_to: localhost

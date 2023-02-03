@@ -1,0 +1,40 @@
+- name: ob2
+  hosts: all
+  gather_facts: true
+  remote_user: root
+
+  vars:
+     package_prefix: "OB2"
+     filtered_packages: "{{ ansible_facts.packages | dict2items
+       | selectattr('key', 'match', package_prefix)
+       | map(attribute='value') | flatten }}"
+      
+     pkg_num: "{{ filtered_packages | count }}"
+     dest: "/ansible/ansible-dataprotector/rapport_dataprotector.csv"
+
+  tasks:
+     - name: gather package facts
+       ansible.builtin.package_facts:
+
+     - name: debug the raw variable
+       debug:
+         var: filtered_packages
+
+     - name: compte le nombre de packages
+       debug:
+         msg: "Il y a {{ pkg_num }} packages
+           qui commence par {{ package_prefix }}"
+
+     - name: Mise en place d'un header CSV
+       lineinfile:
+           insertafter: EOF
+           dest: "{{ dest }}" 
+           line: "Serveur;OS;Nombre de package OB2;Prefix pkg"
+       delegate_to: localhost
+
+     - name: Infos dans un csv
+       lineinfile:
+           dest: "{{ dest }}"
+           line: "{{ inventory_hostname }};{{ ansible_os_family }};{{ pkg_num }};{{ package_prefix }}"
+           state: present
+       delegate_to: localhost

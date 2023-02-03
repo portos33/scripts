@@ -1,0 +1,34 @@
+- hosts: all
+  remote_user: adm-cheops
+  gather_facts: False
+  become: yes
+  
+  tasks:
+    - name: FS patchagent
+      shell: df -hP | grep patchagent
+      register: fs
+      ignore_errors: True 
+
+    - name: fstab patchagent
+      shell: grep patchagent /etc/fstab
+      register: fstab
+      ignore_errors: True
+
+#    - name : affichage
+#      debug: 
+#        msg={{ fs.stdout_lines }};{{ fstab.stdout_lines }}
+#      when: fs is succeeded or 
+#            fstab is succeeded
+
+
+    - name: report.csv
+      lineinfile:
+       path: "/root/ansible/ansible-check-probleme-patchagent/patchagent_report.csv"
+       line: "{{ inventory_hostname }};{{ fs.stdout_lines }};{{ fstab.stdout_lines }}"
+       state: present
+       create: yes
+      delegate_to: localhost 
+
+
+   
+

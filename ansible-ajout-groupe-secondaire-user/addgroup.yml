@@ -1,0 +1,36 @@
+- name: Création et ajout d'un groupe a des utilisateurs 
+
+  hosts: all
+
+  remote_user: root
+  become: yes
+  vars:
+    mygroup: "acces_ssh"
+
+  tasks:
+
+  - name: Créer le groupe acces_ssh
+    ansible.builtin.group:
+      name: "{{ mygroup }}"
+      state: present
+
+  - name: Ajout d'utilisateur dans le groupe acces_ssh
+    ansible.builtin.user:
+      name: "{{ item }}"
+      groups: acces_ssh
+      append: yes
+      state: present
+     
+    with_items:
+      - "adm-cdi-install"
+      - "adm-cheops"
+      - "cdsadmin"
+      - "cheopsup"
+      - "cpt-svc-awx"
+      - "dom"
+      - "ifee"
+      - "jbossadm"
+      - "oracle"
+      - "root"
+      - "wmos"
+      - "zabbix"

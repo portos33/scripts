@@ -1,0 +1,24 @@
+- name: Déploiement compte
+
+  hosts: all
+
+  remote_user: root
+  become: yes
+  gather_facts: false
+
+  vars_prompt:
+  - name: compte
+    prompt: "Entrez le nom du compte à créer"
+    private: no
+
+  - name: password
+    prompt: "Entrez le mdp pour le compte"
+    same_for_all_hosts: false
+
+
+  tasks:
+  - name: creation compte
+    user:
+      name: "{{ compte }}"
+      state: present
+      password: "{{ password | password_hash('sha512','mysecretsalt') }}" 

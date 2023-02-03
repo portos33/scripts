@@ -1,0 +1,35 @@
+- name: Correction cron
+  hosts: all
+  gather_facts: no
+  remote_user: root
+
+
+
+
+  tasks:
+  - name: Ajout de la ligne
+    lineinfile :
+     path: /var/spool/cron/crontabs/expertiz
+     backup: yes
+     insertbefore: BOF
+     line: 'MAILTO= ""'
+     state: present
+
+
+  - name: Vider cache log expertiz
+    shell: ">/var/mail/expertiz"
+
+  - name: Head de la cron
+    shell: "head -1 /var/spool/cron/crontabs/expertiz"
+    register : head
+
+  - name: Verification contenu des mails expertiz
+    shell: "cat /var/mail/expertiz"
+    register: expertiz
+
+  - name: Verification
+    debug:
+      msg: 
+      - "Resultat du head : {{ head.stdout }}"
+      - "Contenu de mail expertiz : {{ expertiz.stdout }}" 
+

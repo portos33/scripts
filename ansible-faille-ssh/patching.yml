@@ -1,0 +1,59 @@
+- name: Patching SSH
+
+  hosts: all
+
+  remote_user: adm-cheops
+  become: yes
+  gather_facts: false
+
+
+  tasks:
+  - name: copie du fichier sshd_config
+    shell: 'cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.1544370'
+    ignore_errors: no
+
+  - name: suppression ciphers sshd_config
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^ciphers*'
+      state: absent
+
+  - name: suppression kexalgorithms
+    lineinfile:
+     path: /etc/ssh/sshd_config
+     regexp: '^kexalgorithms*'
+     state: absent
+
+  - name: recuperation ciphers config sshd -T
+    shell : "sshd -T | grep -E '^ciphers'"
+    register: ciphers
+  - debug :
+      msg: "{{ciphers.stdout}}"
+
+  - name: recuperation kexalgorithms config sshd -T
+    shell : "sshd -T | grep -E '^kexalgori'"
+    register: kexalgorithms
+  - debug :
+      msg: "{{kexalgorithms.stdout}}"
+
+  - name: écriture sshd_config
+    blockinfile:
+      dest: /etc/ssh/sshd_config
+      marker: "# 1544370"
+      insertafter: '^# Ciphers and keying'
+      block : |
+        {{ciphers.stdout}}
+        {{kexalgorithms.stdout}}
+
+  - name : suppression failles
+    replace:
+      dest: /etc/ssh/sshd_config
+      regexp: ",{{item}}"
+      replace: ""
+    loop: "{{ lookup('file', '/root/ansible/suppression').splitlines() }}"
+
+  - name : reload de sshd
+    service:
+      name: sshd
+      state: reloaded
+

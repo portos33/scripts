@@ -1,0 +1,10 @@
+- name: ob2 uninstall
+  hosts: all
+  gather_facts: true
+  remote_user: root
+
+# le module s adapte aux différentes version d' OS
+     - name: Remove the apache package
+       ansible.builtin.package:
+         name: "{{ apache }}"
+         state: absent

@@ -1,0 +1,183 @@
+ 
+5sa-hads-c2060-ftp ne possède pas de patchagent
+5sa-hads-c2060-tom1 ne possède pas de patchagent
+5sa-hads-c2060-tom2 ne possède pas de patchagent
+5sa-hads-c2060-tom3 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-tom4 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-tom5 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-tom6 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-tomf [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-tomq [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-tomquartz [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-c2060-zab ne possède pas de patchagent
+5sa-hads-eai-p ne possède pas de patchagent
+5sa-hads-eai-q [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+5sa-hads-ora1 ne possède pas de patchagent
+5sa-hads-ora2 ne possède pas de patchagent
+abs-abs-prdrdvsql01 ne possède pas de patchagent
+abs-abs-prdrdvweb01 ne possède pas de patchagent
+aca-ca-as1 ne possède pas de patchagent
+aca-ca-isiedev ne possède pas de patchagent
+aca-ca-isieprd ne possède pas de patchagent
+aca-ca-sapdev ne possède pas de patchagent
+aca-ca-sapprd ne possède pas de patchagent
+aca-ca-sappre ne possède pas de patchagent
+aca-dc-as2 ne possède pas de patchagent
+aca-dc-sapqua ne possède pas de patchagent
+aca-dc-slm ne possède pas de patchagent
+ada85-srv-wapt ne possède pas de patchagent
+afld-afld-srv-aut ne possède pas de patchagent
+afld-afld-srv-chorus ne possède pas de patchagent
+afld-afld-srv-ged1 possède un FS patchagent correctement paramétré
+afld-ipo [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+agfa-p3004461-bdd1 possède un FS patchagent correctement paramétré
+agfa-p3014273-srd1 ne possède pas de patchagent
+agfa-prd-hexagone1 possède un FS patchagent correctement paramétré
+agfa-tst-hexagone1 possède un FS patchagent correctement paramétré
+aln-srv-sauv-bdd [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+alp-app-microbiot ne possède pas de patchagent
+alp-info possède un FS patchagent correctement paramétré
+alp-prod-archivage ne possède pas de patchagent
+alp-srv-oiso possède un FS patchagent correctement paramétré
+alp-web-microbiot ne possède pas de patchagent
+alt-srv-aix-hmc [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+alt-srv-dev-aix ne possède pas de patchagent
+alt-srv-gnx-app ne possède pas de patchagent
+alt-srv-gnx-trt ne possède pas de patchagent
+alt-srvbdgce1 ne possède pas de patchagent
+alt-srvbdgce1pra ne possède pas de patchagent
+alt-srvprod1 ne possède pas de patchagent
+alt-srvprod2 ne possède pas de patchagent
+alt-srvprojet ne possède pas de patchagent
+alt-srvtest ne possède pas de patchagent
+alt-srvtraitgce1 ne possède pas de patchagent
+alt-srvtraitgce1pra ne possède pas de patchagent
+alt-vifprod1 possède un FS patchagent correctement paramétré
+alt-vifprod2 ne possède pas de patchagent
+alt-viftest ne possède pas de patchagent
+ap44-tel ne possède pas de patchagent
+arm-armvm-nfs01 ne possède pas de patchagent
+arm-armvm-vc01 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+arm-dfrdcxsapdb ne possède pas de patchagent
+arm-ifrdcxsapdb ne possède pas de patchagent
+arm-pfrdcxas2 ne possède pas de patchagent
+arm-pfrdcxjapi ne possède pas de patchagent
+arm-pfrdcxrproxy ne possède pas de patchagent
+arm-pfrdcxsapdb ne possède pas de patchagent
+arm-pfrdcxtxlogs ne possède pas de patchagent
+as24-ftp-pub1 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+as24-nahpapro ne possède pas de patchagent
+as24-nahpipro ne possède pas de patchagent
+as24-nahpupro [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+as24-sva-tperf [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+aub-orlitestapp1 ne possède pas de patchagent
+aub-orlitestbdd ne possède pas de patchagent
+aub-orllastbdd ne possède pas de patchagent
+aub-orllasttestapp1 ne possède pas de patchagent
+aub-orprdapp1 ne possède pas de patchagent
+aub-orprdapp2 ne possède pas de patchagent
+aub-orprdbdd ne possède pas de patchagent
+axe-ambuactiv01 ne possède pas de patchagent
+cam-dq-mom-01 ne possède pas de patchagent
+cam-dq-ora-01 ne possède pas de patchagent
+cam-ph-prod-gbd-01 ne possède pas de patchagent
+cam-vm-prod-ftp-01 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cam-vm-prod-mom ne possède pas de patchagent
+cam-vm-svn-01 ne possède pas de patchagent
+car-eeplpcp1055 doit être vérifié
+car-eeplpcp2059 possède un FS patchagent correctement paramétré
+car-eeplpcq3062 doit être vérifié
+car-eeplpcq4063 possède un FS patchagent correctement paramétré
+car-erplpcd3061 possède un FS patchagent correctement paramétré
+car-erplpcp1054 doit être vérifié
+car-erplpcp2056 possède un FS patchagent correctement paramétré
+car-erplpcp2057 possède un FS patchagent correctement paramétré
+car-erplpcp2100 possède un FS patchagent correctement paramétré
+car-vmsolman possède un FS patchagent correctement paramétré
+cdi-a01avamar001 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a01avamar002 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a01mnhapp001 ne possède pas de patchagent
+cdi-a01mnhapp002 ne possède pas de patchagent
+cdi-a01mnhapp005 ne possède pas de patchagent
+cdi-a01mnhapp006 ne possède pas de patchagent
+cdi-a01mnhapp007 ne possède pas de patchagent
+cdi-a01mnhapp008 ne possède pas de patchagent
+cdi-a01mnhdom001 ne possède pas de patchagent
+cdi-a01mnhdom002 ne possède pas de patchagent
+cdi-a01mnhife001 ne possède pas de patchagent
+cdi-a01mnhife002 ne possède pas de patchagent
+cdi-a01mnhora004 ne possède pas de patchagent
+cdi-a01mnhora005 ne possède pas de patchagent
+cdi-a01mnhora006 ne possède pas de patchagent
+cdi-a01mnhweb001 ne possède pas de patchagent
+cdi-a01mnhweb002 ne possède pas de patchagent
+cdi-a01sapas001 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a01sapas002 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a01sapas003 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a01sapas004 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a02mnhapp001 ne possède pas de patchagent
+cdi-a02mnhapp002 ne possède pas de patchagent
+cdi-a02mnhdom001 ne possède pas de patchagent
+cdi-a02mnhdom002 ne possède pas de patchagent
+cdi-a02mnhife001 ne possède pas de patchagent
+cdi-a02mnhweb001 ne possède pas de patchagent
+cdi-a02mnhweb002 ne possède pas de patchagent
+cdi-a02sapas001 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+cdi-a02mnhapp001 ne possède pas de patchagent
+cdi-a02mnhapp002 ne possède pas de patchagent
+cdi-a02mnhdom001 ne possède pas de patchagent
+cdi-a02mnhdom002 ne possède pas de patchagent
+cdi-a02mnhife001 ne possède pas de patchagent
+cdi-a02mnhweb001 ne possède pas de patchagent
+cdi-a02mnhweb002 ne possède pas de patchagent
+cdi-a04mandb002 ne possède pas de patchagent
+cdi-aa01srvoidl001 ne possède pas de patchagent
+cdi-aa01srvoidl002 ne possède pas de patchagent
+cdi-cduxcep05 ne possède pas de patchagent
+cdi-cduxcep06 ne possède pas de patchagent
+cdi-cduxcep07 ne possède pas de patchagent
+cdi-cduxcep08 ne possède pas de patchagent
+cdi-cduxcgp01 ne possède pas de patchagent
+cdi-cduxcgp02 ne possède pas de patchagent
+cdi-cduxmgr01 ne possède pas de patchagent
+cdi-cduxmgr03 ne possède pas de patchagent
+cdi-ces-dev-egx01 ne possède pas de patchagent
+cdi-ces-dev-trt ne possède pas de patchagent
+cdi-ces-pp-egx01 ne possède pas de patchagent
+cdi-ces-pp-trt ne possède pas de patchagent
+cdi-ces-rct-egx01 ne possède pas de patchagent
+cdi-ces-rct-trt ne possède pas de patchagent
+cdi-ldc-a01mnhapp003 ne possède pas de patchagent
+cdi-ldc-a01mnhapp004 ne possède pas de patchagent
+cdi-ldc-a01mnhdom003 ne possède pas de patchagent
+cdi-ldc-a01mnhdom004 ne possède pas de patchagent
+cdi-ldc-a01mnhife003 ne possède pas de patchagent
+cdi-ldc-a01mnhife004 ne possède pas de patchagent
+cdi-ldc-a01mnhweb003 ne possède pas de patchagent
+cdi-ldc-a01mnhweb004 ne possède pas de patchagent
+ceva-bst1pdww [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-ceva_vcappliance [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-chesvappenodv01 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-chesvappenopd01 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-corppdbd01 possède un FS patchagent correctement paramétré
+ceva-corppdbd02 possède un FS patchagent correctement paramétré
+ceva-eo9pddb1ww possède un FS patchagent correctement paramétré
+ceva-eo9ppdb1ww possède un FS patchagent correctement paramétré
+ceva-esetpdww possède un FS patchagent correctement paramétré
+ceva-mi2ref3pww ne possède pas de patchagent
+ceva-mi2ref4pww ne possède pas de patchagent
+ceva-web1erppp [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-wf1pdww [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-wf2pdww [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-wf3 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-wf4 [ERREUR] -- code erreur fs 1 || code erreur fstab 255
+ceva-wfpd91 ne possède pas de patchagent
+ceva-wfpd92 ne possède pas de patchagent
+ceva-wfpp91 ne possède pas de patchagent
+che-che44-itstimeweb ne possède pas de patchagent
+cnp-srv-app-preprod ne possède pas de patchagent
+cnp-srv-app-prod ne possède pas de patchagent
+cnp-srv-sql-preprod ne possède pas de patchagent
+cnp-srv-sql-prod ne possède pas de patchagent
+crcdc-crc-pro-01 ne possède pas de patchagent
+crma62-sv014airlinu01 [ERREUR] -- code erreur fs 1 || code erreur fstab 255

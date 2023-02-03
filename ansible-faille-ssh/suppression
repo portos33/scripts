@@ -1,0 +1,8 @@
+3des-cbc
+aes128-cbc
+aes192-cbc
+aes256-cbc
+blowfish-cbc
+cast128-cbc
+diffie-hellman-group1-sha1
+diffie-hellman-group-exchange-sha1
