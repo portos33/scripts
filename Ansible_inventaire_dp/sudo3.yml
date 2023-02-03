@@ -1,0 +1,19 @@
+- name: Recupération version sudo
+
+  hosts: all
+
+  remote_user: root
+
+  tasks:
+  - name: Gather the package facts
+    package_facts:
+      manager: auto
+
+  - name: Print Package facts
+    debug:
+      var: ansible_facts.packages 
+
+  - name: Check if sudo is installed
+    debug:
+      msg: "{{ ansible_facts.packages['ob2'][0]['version'] }}"
+    when: "'ob2' in ansible_facts.packages"

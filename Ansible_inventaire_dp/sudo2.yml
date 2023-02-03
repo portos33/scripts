@@ -1,0 +1,45 @@
+- name: Recupération version sudo
+
+  hosts: all
+
+  remote_user: root
+
+  tasks:
+
+  - name: Recup infos redhat/oracleLinux/Suse 
+    shell: 'rpm -qa | grep -i ob2'
+    when: (ansible_facts['os_family'] == "RedHat") or (ansible_facts['os_family'] == "Suse")
+    register: ob2_ver_rhel
+  
+  - name: Recup infos debian
+    shell: "dpkg -l | grep -i ob2 | awk '{print $3}'" 
+    when: ansible_facts['distribution'] == "Debian"
+    register: ob2_ver_deb
+
+  #- name: Affichage infos
+    #debug:
+     # msg: "{{ inventory_hostname }};{{ sudo_ver_deb.stdout }}"
+    #when: ansible_facts['distribution'] == "Debian"
+
+  #- name: Affichage infos
+    #debug:
+     # msg: "{{ inventory_hostname }};{{ sudo_ver_rhel.stdout }}"
+    #when: (ansible_facts['os_family'] == "RedHat") or (ansible_facts['os_family'] == "Suse")
+
+  - name: Infos dans un csv
+    lineinfile:
+      path: /home/adm-kaldana/Ansible_inventaire_dp/inventory_dp.csv
+      line: "{{ item.line }}"
+      state: present
+    with_items:
+      - '{{ inventory_hostname }};{{ ansible_os_family }};{{ ansible_distribution }} {{ ansible_distribution_version }};{{ob2_ver_rhel.stdout }}'
+      - '{{ inventory_hostname }};{{ ansible_os_family }};{{ ansible_distribution }} {{ ansible_distribution_version }};{{ob2_ver_deb.stdout }}'
+    delegate_to: localhost
+
+ # - name: Infos dans un csv
+  #  lineinfile:
+  #    path: /home/adm-kaldana/Ansible_inventaire_dp/inventory_dp.csv
+  #    line: "{{ inventory_hostname }};{{ ansible_os_family }};{{ ansible_distribution }} {{ ansible_distribution_version }};{{sudo_ver_deb.stdout }}"
+  #    state: present
+  #  when: ansible_facts['distribution'] == "Debian"
+  #  delegate_to: localhost

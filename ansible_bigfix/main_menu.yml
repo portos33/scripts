@@ -1,0 +1,27 @@
+- name: Menu pour installation Bigfix
+  hosts: all
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+
+  vars_prompt:
+    - name: action
+      prompt: "Please select an action (1=install BigFix, 2=create deployment, 3=delete deployment):"
+      private: no
+
+  tasks:
+    - name: Install BigFix
+      include_role:
+        name: bigfix
+      when: action == '1'
+
+    - name: Create deployment
+      import_role:
+        name: create_bfdeploy
+      when: action == '2'
+
+    - name: Delete deployment
+      import_role:
+        name: suppr_bfdeploy
+      when: action == '3'

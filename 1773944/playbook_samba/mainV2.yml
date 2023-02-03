@@ -1,0 +1,22 @@
+- name: Update SMB V1 - V2
+  hosts: all
+  remote_user: adm-cheops
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Check du package SMB sous Debian
+      command: "dpkg -l| grep samba"
+      register: package_check
+      when: ansible_facts['distribution'] == "Debian"
+      ignore_errors: yes
+
+    - name: Check du package SMB sous RedHat
+      command: rpm –qa | grep –i ‘samba’
+      register: package_check
+      when: ansible_facts['os_family'] == "RedHat"
+      ignore_errors: yes
+
+    - name: "Print du résultat"
+      debug:
+        msg: "{{ package_check }}"

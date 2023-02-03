@@ -1,0 +1,47 @@
+- name: "Menu pour creation user bfdeploy"
+  hosts: all
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+#- name: Playbook de création d'un utilisateur bfdeploy avec droits sudo et vérification de la connexion ssh avec la clé et ssh-copy-id en cas d'échec
+#  hosts: all
+#  gather_facts: false
+
+  tasks:
+
+  - name: Creation du user bfdeploy
+    user:
+      name: bfdeploy
+      state: present
+      shell: /bin/bash
+      createhome: yes
+      comment: "user_test pour installation bigfix"
+
+
+  - name: Creation du mdp
+    shell: echo -e ";e0HL958\n;e0HL958" | passwd bfdeploy
+
+
+  - name: Droit sudo bfdeploy
+    lineinfile :
+      path: /etc/sudoers
+      backup: yes
+      insertafter: "^cheops"
+      line: |
+
+       # bfdeploy pour Deploiement agent big fix
+       bfdeploy        ALL=(ALL)       NOPASSWD: ALL
+       Defaults:bfdeploy  !requiretty
+      state: present
+      validate: '/usr/sbin/visudo -cf %s'
+
+
+  - name: Ajout de la VIP EMSS du serveur bfc01 dans le host du serveur cible
+    lineinfile:
+        path: /etc/hosts
+        backup: yes
+        insertbefore: BOF
+        line: '10.133.71.251 icdvm-bfc01'
+        state: present
+

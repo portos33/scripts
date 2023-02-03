@@ -1,0 +1,21 @@
+- name: Suppression du user bfdeploy
+  hosts: all
+  gather_facts: no
+  remote_user: adm-cheops
+  become: yes
+
+  tasks:
+
+  - name: Suppression du user bfdeploy
+    ansible.builtin.user:
+      name: bfdeploy
+      state: "absent"
+      remove: true
+
+  - name: Suppression des droits sudo
+    lineinfile:
+      path: /etc/sudoers
+      regexp: bfdeploy
+      state: absent
+      validate: '/usr/sbin/visudo -cf %s'
+

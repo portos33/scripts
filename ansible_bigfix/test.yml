@@ -1,0 +1,53 @@
+---
+- hosts: all
+  vars:
+    ansible_ssh_user: root
+    ansible_ssh_pass: "{{ root_password }}"
+  tasks:
+  - name: Connexion en tant que root
+    wait_for_connection:
+      timeout: 60
+      sleep: 10
+  - name: Envoi de la clé publique avec ssh-copy-id
+    command: ssh-copy-id "{{ ansible_ssh_user }}@{{ ansible_ssh_host }}"
+    register: ssh_copy_id_result
+  - name: Gestion des erreurs de ssh-copy-id
+    prompt: "Entrez votre mot de passe pour continuer :"
+    private: no
+    loop: "{{ ssh_copy_id_result.stderr }}"
+    when: ssh_copy_id_result.stderr is search("(?i)password")
+  - name: Déconnexion de root
+    meta: disconnect_all
+  ignore_errors: yes
+
+#  - name: Connexion en tant qu'adm-cheops
+#    wait_for_connection:
+#      timeout: 60
+#      sleep: 10
+#    become: yes
+#    become_method: su
+#    become_user: adm-cheops
+#
+#  - name: Copie de la clé publique sur le serveur distant
+#    authorized_key:
+#      user: "{{ ansible_ssh_user }}"
+#      key: "{{ lookup('file', '/chemin/vers/la/cle/publique.pub') }}"
+#      manage_dir: yes
+#  - name: Déconnexion de adm-cheops
+#    meta: disconnect_all
+#  ignore_errors: yes
+#  - name: Connexion en tant qu'adm-user
+#    wait_for_connection:
+#      timeout: 60
+#      sleep: 10
+#    become: yes
+#    become_method: su
+#    become_user: adm-user
+#  - name: Copie de la clé publique sur le serveur distant
+#    authorized_key:
+#      user: "{{ ansible_ssh_user }}"
+#      key: "{{ lookup('file', '/chemin/vers/la/cle/publique.pub') }}"
+#      manage_dir: yes
+#  - name: Déconnexion de adm-user
+#    meta: disconnect_all
+#

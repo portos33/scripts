@@ -1,0 +1,20 @@
+   - name: check package et modification fichier de conf
+     hosts: all
+     gather_facts: yes
+     remote_user: adm-cheops
+     become: yes
+
+     tasks:
+     - name: Gather the package facts
+       package_facts:
+         manager: auto
+
+     - name: Print Package facts
+       debug:
+          msg: "{{ ansible_facts.packages }}"
+
+     - name: Check if samba is installed
+       debug:
+         msg: "Samba {{ ansible_facts.packages['samba'][0]['version'] }}{{ ansible_facts.packages['samba'][0]['release'] }}{{ ansible_facts.packages['samba'][0]['arch'] }}"
+       when: "'samba' in ansible_facts.packages"
+

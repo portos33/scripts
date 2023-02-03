@@ -1,0 +1,133 @@
+- name: Menu pour installation Bigfix
+  hosts: all
+  become: yes
+  gather_facts: yes
+  remote_user: root
+
+  vars_prompt:
+  - name: VIP_EMSS
+    prompt: |
+        Pouvez vous me donner l'adresse ip de la VIP EMSS dispo sur l'IPAM ?
+    private: no
+
+  - name: CID
+    prompt: |
+        Pouvez vous me donner le CID du client ?
+    private: no
+
+
+  tasks:
+
+# Installation des prérequis
+  - name: Creation du repertoire
+    file:
+      path: /etc/opt/BESClient
+      mode: '0755'
+      recurse: yes
+      state: directory
+
+  - name: Mise en place du nom dns sous /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      backup: yes
+      line: "10.133.71.251 icdvm-bfc01"
+      state: present
+
+  - name: DL de la key masterhead sur le Master Bigfix
+    get_url:
+            url: https://{{VIP_EMSS}}:52311/masthead/masthead.afxm
+            dest: /etc/opt/BESClient/actionsite.afxm
+            validate_certs: false
+            mode: '0755'
+
+#Copy de BigFix sur multi OS
+  - name: Copy du RPM pour Redhat et CentOS
+    copy:
+      src: ./BESAgent-10.0.7.52-rhe6.x86_64.rpm
+      dest: /tmp/BESAgent.rpm
+    when: ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS'
+
+  - name: Copy du DEB pour Debian
+    copy:
+      src: ./BESAgent-10.0.7.52-debian6.amd64.deb
+      dest: /tmp/BESAgent-deb.deb
+    when: ansible_os_family == 'Debian'
+
+  - name: Copy du DEB pour Ubuntu
+    copy:
+      src: ./BESAgent-10.0.7.52-ubuntu10.amd64.deb
+      dest: /tmp/BESAgent-ubu.deb
+    when: ansible_os_family == 'Ubuntu'
+
+#Install de BigFix sur multi OS
+  - name: Install package RPM pour Redhat et CentOS
+    package:
+      name: /tmp/BESAgent.rpm
+      state: present
+    when: ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS'
+
+  - name: Install package DEB pour Debian
+    apt:
+      deb: /tmp/BESAgent-deb.deb
+      state: present
+    when: ansible_os_family == 'Debian'
+
+  - name: Install package DEB pour Ubuntu
+    apt:
+      deb: /tmp/BESAgent-ubu.deb
+      state: present
+    when: ansible_os_family == 'Ubuntu'
+
+#Suppression package BigFix sur multi OS
+  - name: Suppression du fichier RPM pour RedHat et CentOS
+    file:
+      path: /tmp/BESAgent.rpm
+      state: absent
+    when: ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS'
+
+  - name: Suppression du fichier DEB Debian
+    file:
+      path: /tmp/BESAgent-deb.deb
+      state: absent
+    when: ansible_os_family == 'Debian' or ansible_os_family == 'Ubuntu'
+
+  - name: Suppression du fichier DEB Ubuntu
+    file:
+      path: /tmp/BESAgent-ubu.deb
+      state: absent
+    when: ansible_os_family == 'Ubuntu'
+
+#Start du service
+  - name: 1 second de pause pour start le service
+    pause:
+      seconds: 1
+
+  - name: Start du service s'il n'est pas activé
+    systemd:
+          name: "besclient"
+          state: restarted
+          enabled: yes
+
+  - name: Stop du service pour modification de la conf
+    systemd:
+        name: "besclient"
+        state: stopped
+
+#Modification du fichier de conf avec restart pour validation
+  - name: Modification de la conf bigfix
+    blockinfile:
+      path: /var/opt/BESClient/besclient.config
+      marker: "# {mark} ANSIBLE MANAGED BLOCK"
+      block: |
+        [Software\BigFix\EnterpriseClient\Settings\Client\cid]
+        value = {{ CID }}
+
+        [Software\BigFix\EnterpriseClient\Settings\Client\__RelayServer1]
+        value = http://{{ VIP_EMSS }}:52311/bfmirror/downloads/
+
+  - name: Restart du service pour valider les changements
+    systemd:
+          name: "besclient"
+          state: restarted
+          enabled: yes
+

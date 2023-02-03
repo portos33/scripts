@@ -1,0 +1,20 @@
+ceva-bst1pdww        ansible_port=22345
+ceva-chejdewfpd01    ansible_port=22345
+ceva-chejdewfpd02    ansible_port=22345
+ceva-chejdewfpp01    ansible_port=22345
+ceva-chejdewfpp02    ansible_port=22345
+ceva-chesvappenodv01 ansible_port=22345
+ceva-chesvappenopd01 ansible_port=22345
+ceva-chesvbstpd01    ansible_port=22345
+ceva-chesvbstpd02    ansible_port=22345
+ceva-chesvsftp01     ansible_port=22345
+ceva-corpdvbd01      ansible_port=22345
+ceva-corpppbd01      ansible_port=22345
+ceva-mi2ref3pww      ansible_port=22345
+ceva-mi2ref4pww      ansible_port=22345
+ceva-wf1pdww         ansible_port=22345
+ceva-wf2pdww         ansible_port=22345
+ceva-eo9pddb1ww
+ceva-eo9ppdb1ww
+ceva-corppdbd01
+ceva-corppdbd02
