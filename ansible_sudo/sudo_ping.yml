@@ -1,0 +1,34 @@
+- name: Recupération version sudo
+  gather_facts: false
+  hosts: all
+  remote_user: adm-cheops
+
+
+  tasks:
+
+  - ping: 
+    ignore_unreachable: yes
+    register: sshcheck
+
+  - set_fact:
+      sshreachable: OUI
+    when: sshcheck is success
+
+  - set_fact:
+      sshreachable: NON
+    when: sshcheck is unreachable
+
+  - name: Mise en place d'un header CSV
+    lineinfile:
+        insertafter: BOF
+        state: present
+        dest:  /home/adm-kaldana/ansible_sudo/list_adm-cheops 
+        line: "Serveur;Accesible depuis Unix01"
+    delegate_to: localhost
+
+  - name: Infos dans un csv
+    lineinfile:
+        dest:  /home/adm-kaldana/ansible_sudo/list_adm-cheops
+        state: present
+        line: "{{ inventory_hostname }};{{ sshreachable }}"
+    delegate_to: localhost

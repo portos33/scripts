@@ -1,0 +1,6 @@
+dst_repository: /home/adm-kaldana/ansible_sudo/faille_update_package/report
+#dst_repository: /tmp/report
+etat: correction_sudo
+#ticket: 1072552
+#project: UNI
+pkg_dest: /tmp/{{ ansible_os_family }}{{ ansible_distribution_major_version }}

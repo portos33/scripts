@@ -1,0 +1,12 @@
+- name: Correction sudo
+
+  hosts: all
+
+  remote_user: root
+  
+  tasks:
+  - name: package copy
+    copy:
+        src: /root/ansible/ansible-faille-sudo/{{ ansible_os_family }}{{ ansible_distribution_major_version }}/test
+        dest: /home/adm-kaldana/ansible_sudo/
+    delegate_to: localhost

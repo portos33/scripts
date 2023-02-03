@@ -1,0 +1,46 @@
+---
+#- name: SUSE | get package list to install
+#  set_fact:
+#    my_packages: "{{ lookup('fileglob', '{{rl_faille }}/{{ rl_vm_os }}/*.rpm') }}"
+#  delegate_to: localhost
+
+#- name: SUSE | package install
+#  zypper:
+#    name: "{{ pkg_dest }}/{{ item }}"
+#    state: present
+#  loop: "{{ my_packages }}"
+#  ignore_errors: yes
+
+- name: "{{ansible_os_family}} |  Finding RPM files"
+  find:
+    paths: "{{ rl_package_dst }}"
+    patterns: "*.rpm"
+  register: rpm_result
+
+#- debug:
+##    msg: "{{ rpm_result }}"
+
+- name: "{{ansible_os_family}} | package install"
+  zypper: 
+    name: "{{ rpm_result.files | map(attribute='path') | list}}" 
+    state: present
+  ignore_errors: yes
+
+#  debug:
+#    msg: "Faille corrigée"
+#  when:  install is succeeded
+#  register: verif_result
+
+#- name: verif faille
+#  debug:
+##    msg: "Faille non corrigée"
+#  when:  install is failed
+#  register: verif_result
+
+- name: "{{ansible_os_family}} | get {{ rl_faille }} version "
+  shell: "rpm -qa | egrep ^{{ rl_faille }}"
+  register: package_version
+
+- name: "{{ansible_os_family}} | set fact, package is installed"
+  set_fact:
+    package_version: "{{package_version.stdout_lines}}"

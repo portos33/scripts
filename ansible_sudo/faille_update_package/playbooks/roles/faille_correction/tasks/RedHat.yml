@@ -1,0 +1,65 @@
+---
+#- name: RHEL | get package list to install
+#  set_fact:
+#    my_packages: "{{ lookup('fileglob', 'files/{{rl_faille }}/{{ rl_vm_os }}/*.rpm') }}"
+#  delegate_to: localhost
+
+
+
+#- debug: msg={{ lookup('fileglob', '{{rl_package_dst }}/*') }}
+
+- name: Finding RPM files
+  find:
+    paths: "{{ rl_package_dst }}"
+    patterns: "*.rpm"
+  register: rpm_result
+
+#- debug:
+#    msg: "{{ rpm_result }}"
+
+- name: package install Rhel
+  yum: pkg={{item}} state=present disablerepo=*
+  loop: "{{ rpm_result.files | map(attribute='path') | list}}"
+  ignore_errors: yes
+
+#- name: verif faille
+#  debug:
+#    msg: "Faille corrigée"
+#  when:  install is succeeded
+#  register: verif_result
+
+#- name: verif faille
+#  debug:
+##    msg: "Faille non corrigée"
+#  when:  install is failed
+#  register: verif_result
+
+- name: RHEL | get {{ rl_faille }} version
+  shell: "rpm -qa | egrep ^{{ rl_faille }}"
+  register: package_version
+
+- name: set fact, package is installed
+  set_fact:
+    package_version: "{{package_version.stdout_lines}}"
+
+#- debug: 
+ #   msg: "{{ package_version }}"
+#- name: Gather the package facts
+ # package_facts:
+  #    manager: auto
+  
+#- debug: 
+ #   msg: "{{ ansible_facts.packages['sudo']|map(attribute='version')|list|first }}"
+  #register: pkg_ver
+
+#- debug:
+ #   msg: "{{ ansible_facts.packages['sudo']|map(attribute='release')|list|first }}"
+  #register: pkg_release
+
+#- debug:
+#    msg: "{{ ansible_facts.packages['sudo']|map(attribute='arch')|list|first }}"
+#  register: pkg_arch
+
+#- name: set fact, package is installed
+#  set_fact:
+#     package_version: "{{ pkg_ver.stdout }}-{{ pkg_release.stdout }}.{{ pkg_arch.stdout }}"

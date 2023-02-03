@@ -1,0 +1,25 @@
+---
+- hosts: all
+  remote_user: adm-cheops 
+  gather_facts: True 
+  become: yes
+  roles:
+    - faille_correction
+  #vars_files:
+   # - "{{provider_config_path}}/{{ current_env }}/vault.yml"
+   # - "{{provider_config_path}}/{{ current_env }}/hashicorp_vault.yml" 
+  vars:
+    #----------------- DEBUG -------
+    - form_vuln_name: "sudo"
+    - form_ticket: "1442698"
+    - form_trigramme: "Debug" 
+    #----------------- FIN DEBUG ---
+
+    - rl_vm_name: "{{inventory_hostname}}"
+    - rl_customer_trigram: "{{form_trigramme}}"
+    #- rl_vm_env: "{{inv_vm_env}}"
+    - rl_vm_os: "{{ansible_os_family}}_{{ansible_distribution_major_version}}"
+    - rl_faille: "{{ form_vuln_name }}"
+    - rl_package_dst: /tmp/{{ rl_faille }}
+    - rl_ticket: "{{form_ticket}}"
+

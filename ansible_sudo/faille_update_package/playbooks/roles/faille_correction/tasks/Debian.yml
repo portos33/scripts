@@ -1,0 +1,49 @@
+---
+
+
+- name: DEB | Finding DEB files
+  find:
+    paths: "{{ rl_package_dst }}"
+    patterns: "*.deb"
+  register: deb_result
+
+- name: DEB | package install
+  apt:
+    deb: "{{ item }}"
+  loop: "{{ deb_result.files | map(attribute='path') | list}}"
+  ignore_errors: yes
+#  register: install
+  #failed_when: "'no package' in install.stdout"
+
+#- debug: var=install 
+#varbosity=1
+
+
+#- name: verif faille
+#  debug:
+#    msg: "Faille corrigée"
+#  when:  install is succeeded
+#  register: verif_result
+
+#- name: verif faille
+#  debug:
+##    msg: "Faille non corrigée"
+#  when:  install is failed
+#  register: verif_result
+
+- name: Gather the package facts
+  package_facts:
+      manager: auto
+
+- name: set fact, package is installed
+  set_fact:
+    package_version: "{{ansible_facts.packages['sudo']|map(attribute='version')|list|first}}"
+
+#- debug: var=package_version
+
+# - name: DEB | get {{ rl_faille }} version
+#   shell: dpkg -l | awk '/{{ rl_faille }}/{{print $2"-"$3}}' | grep ^{{ rl_faille }}
+#   #shell: "dpkg -l | egrep sudo"
+#   #| awk '{​​print $3}​​'"
+#   #shell: "dpkg -l | grep sudo "
+#   register: package_version

@@ -1,0 +1,4 @@
+[defaults]
+host_key_checking = False
+inventory = /home/adm-kaldana/ansible_sudo/list_sup_linux
+log_path=/home/adm-kaldana/ansible_sudo/faille_sudo.log

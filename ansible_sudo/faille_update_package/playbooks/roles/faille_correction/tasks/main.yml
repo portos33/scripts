@@ -1,0 +1,58 @@
+---
+- name: package copy
+  copy:
+    src: "{{ rl_faille }}/{{ ansible_os_family }}_{{ ansible_distribution_major_version }}/"
+    dest: "{{ rl_package_dst }}"
+
+- name: Run  {{ ansible_os_family }} tasks
+  include: "{{ ansible_os_family }}.yml"
+
+- name: report.csv
+  lineinfile:
+   path: "{{ dst_repository }}/{{ rl_customer_trigram }}/{{ rl_ticket }}/correction_report.csv" 
+   line: "{{ inventory_hostname }};{{ ansible_os_family }};{{ ansible_distribution }} {{ ansible_distribution_version }};{{ my_data }}"
+   state: present
+   create: yes
+  delegate_to: localhost
+  vars:
+    #my_data: "{{ansible_facts.packages['sudo']|map(attribute='version')|list|first}}"
+    my_data: "{{package_version}}"
+    
+#- name: REPORT | Gitlab | Test report file already exist
+#  uri:
+#     url: "https://infvm-git01.infocheops.local/api/v4/projects/66/repository/files/report%2F{{ rl_customer_trigram }}%2F{{ rl_ticket }}%2Freport.csv?ref=master"
+#     validate_certs: no
+#     method: GET
+#     headers:
+#        Content-Type: application/json
+#        PRIVATE-TOKEN: "{{vault_git_token_csv_file}}"
+#     status_code: 200
+#  register: gitlab_files
+#  delegate_to: localhost
+#  failed_when: not (gitlab_files.status == 200 or gitlab_files.status == 404)     
+#  run_once: true
+
+#- name: REPORT | Gitlab | Upload file from ansible to gitlab
+#  uri:
+#    #url: "https://infvm-git01.infocheops.local/api/v4/projects/66/repository/files/filename?branch=master&commit_message=uploadfile"
+#    url: "https://infvm-git01.infocheops.local/api/v4/projects/66/repository/files/report%2F{{ rl_customer_trigram }}%2F{{ rl_ticket }}%2Freport.csv?branch=master&commit_message=uploadfile"
+#    validate_certs: no
+#    method: "{%- if gitlab_files.status == 200 -%}
+#                 PUT
+#             {%- else -%}
+#                 POST
+#             {%- endif -%}"
+#    headers:
+#       Content-Type: application/x-www-form-urlencoded
+#       PRIVATE-TOKEN: "{{vault_git_token_csv_file}}"
+#    status_code: "{%- if gitlab_files.status == 200 -%}
+#                     200
+#                  {%- else -%}
+#                     201
+#                  {%- endif -%}"
+#    body: "content={{ lookup('file', '{{ dst_repository }}/{{ rl_customer_trigram }}/{{ rl_ticket }}/correction_report.csv')|urlencode }}"
+#  register: gitlab_upload
+#  run_once: true
+#  delegate_to: localhost
+
+#- debug: var=gitlab_upload
